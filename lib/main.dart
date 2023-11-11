@@ -21,12 +21,43 @@ class MyApp extends StatelessWidget {
           ),
           backgroundColor: const Color(0x0000007d),
         ),
-        body: const Column(
+        body: Column(
           children: [
-            Text(
+            const Text(
               'You need to answer a few questions',
               style: TextStyle(
                 fontSize: 22,
+              ),
+            ),
+            ElevatedButton(
+                onPressed: (){
+
+                },
+                child: const Text(
+                    'You have chosen answer 1',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+            ),
+            ElevatedButton(
+              onPressed: (){
+
+              },
+              child: const Text('You have chosen answer 2',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: (){
+
+              },
+              child: const Text('You have chosen answer 3',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               ),
             ),
           ],
