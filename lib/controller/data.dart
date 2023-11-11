@@ -1,4 +1,4 @@
-var questions=[
+var questions = [
   "I see myself as someone who is depressed.",
   "I see myself as someone who can be tense.",
   "I see myself as someone who worries a lot",
