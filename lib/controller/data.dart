@@ -9,3 +9,7 @@ var questions = [
   "I see myself as someone who does not remain calm in high-pressure situations",
   "I see myself as someone who does not remain calm in tense situations"
 ];
+
+var degreeList=[0,0,0,0,0,0,0,0,0];
+
+var selectOptionList=[0,0,0,0,0,0,0,0,0];

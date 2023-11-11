@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_your_personality/controller/controller.dart';
 import 'package:test_your_personality/controller/data.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
@@ -11,7 +10,7 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state.index;
+    var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state.selectedOption[index];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,10 +33,11 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                       activeColor: Colors.red,
                       onChanged: (value) {
                         statePersonalityModelIndex = value!;
-                        selectedOption(ref,value);
+                        //selectedOption(ref,value!,index);
+                        debugPrint(statePersonalityModelIndex.toString());
                         },
                     ),
-                    Text('${radioIndex - 1}'),
+                    Text('${radioIndex-1}'),
                   ],
                 ),
               ),

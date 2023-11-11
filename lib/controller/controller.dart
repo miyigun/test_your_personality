@@ -6,7 +6,8 @@ void increaseIndex(WidgetRef ref) {
   statePersonalityModelIndex.index++;
 }
 
-void selectedOption(WidgetRef ref,int value) {
+void selectedOption(WidgetRef ref,int value,int index) {
   final statePersonalityModelSelectedOption = ref.read(statePersonalityModel.notifier).state;
-  statePersonalityModelSelectedOption.selectedOption=value;
+  statePersonalityModelSelectedOption.selectedOption[index]=value;
+  //debugPrint(statePersonalityModelSelectedOption.selectedOption[index].toString());
 }
