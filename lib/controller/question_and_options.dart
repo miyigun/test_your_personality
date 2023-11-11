@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_your_personality/controller/controller.dart';
 import 'package:test_your_personality/controller/data.dart';
+import 'package:test_your_personality/model/personality_model.dart';
 
-class QuestionAndOptionsWidget extends StatefulWidget {
+class QuestionAndOptionsWidget extends ConsumerWidget {
   const QuestionAndOptionsWidget({super.key, required this.index});
 
   final int index;
 
   @override
-  State<QuestionAndOptionsWidget> createState() =>
-      _QuestionAndOptionsWidgetState();
-}
-
-class _QuestionAndOptionsWidgetState extends State<QuestionAndOptionsWidget> {
-  @override
-  Widget build(BuildContext context) {
-    int? selectedOption;
+  Widget build(BuildContext context, WidgetRef ref) {
+    var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state.index;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.8,
-          child: Text('${widget.index+1}- ${questions[widget.index]}'),
+          child: Text('${index+1}- ${questions[index]}'),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -33,13 +30,12 @@ class _QuestionAndOptionsWidgetState extends State<QuestionAndOptionsWidget> {
                   children: [
                     Radio(
                       value: radioIndex,
-                      groupValue: selectedOption,
+                      groupValue: statePersonalityModelIndex,
                       activeColor: Colors.red,
                       onChanged: (value) {
-                        setState(() {
-                          selectedOption = value!;
-                        });
-                      },
+                        statePersonalityModelIndex = value!;
+                        selectedOption(ref,value);
+                        },
                     ),
                     Text('${radioIndex - 1}'),
                   ],
