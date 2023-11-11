@@ -34,9 +34,10 @@ class _QuestionAndOptionsWidgetState extends State<QuestionAndOptionsWidget> {
                     Radio(
                       value: radioIndex,
                       groupValue: selectedOption,
+                      activeColor: Colors.red,
                       onChanged: (value) {
                         setState(() {
-                          radioIndex = value!;
+                          selectedOption = value!;
                         });
                       },
                     ),
