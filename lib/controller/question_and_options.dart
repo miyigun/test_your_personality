@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_your_personality/controller/controller.dart';
 import 'package:test_your_personality/controller/data.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
@@ -11,6 +12,7 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state.selectedOption[index];
+    var statePersonalityModelIndexWatch = ref.watch(statePersonalityModel).selectedOption[index];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,12 +31,13 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                   children: [
                     Radio(
                       value: radioIndex,
-                      groupValue: statePersonalityModelIndex,
+                      groupValue: statePersonalityModelIndexWatch,
                       activeColor: Colors.red,
                       onChanged: (value) {
                         statePersonalityModelIndex = value!;
-                        //selectedOption(ref,value!,index);
+                        selectedOption(ref,value,index);
                         debugPrint(statePersonalityModelIndex.toString());
+                        debugPrint(statePersonalityModelIndexWatch.toString());
                         },
                     ),
                     Text('${radioIndex-1}'),
