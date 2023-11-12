@@ -3,20 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/controller/data.dart';
 
 class PersonalityModel  extends ChangeNotifier {
-  List<String> question;
-  List<int> degree;
-  int index;
-  List<int> selectedOption;
+  List<int> selectedOption=selectOptionList;
 
-  PersonalityModel(this.question, this.degree, this.index, this.selectedOption);
+  void changeSelectOption(int? value,int index) {
+    selectedOption[index]=value!;
 
-  void changeSelectOption(int select, int ind){
-    selectedOption[ind]=select;
+    debugPrint(index.toString());
+    debugPrint(selectedOption[index].toString());
 
     notifyListeners();
+  }
+
+  int showSelectedOption(int index){
+    return selectedOption[index];
   }
 }
 
 final statePersonalityModel = StateProvider<PersonalityModel>((ref) {
-  return PersonalityModel(questions, degreeList, 1, selectOptionList);
+  return PersonalityModel();
 });

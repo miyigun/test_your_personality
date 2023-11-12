@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_your_personality/controller/controller.dart';
 import 'package:test_your_personality/controller/data.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
@@ -11,15 +10,16 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state;
-    var statePersonalityModelIndexWatch = ref.watch(statePersonalityModel);
+    var statePersonalityModelRead =
+        ref.read(statePersonalityModel.notifier).state;
+    var statePersonalityModelWatch = ref.watch(statePersonalityModel);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.8,
-          child: Text('${index+1}- ${questions[index]}'),
+          child: Text('${index + 1}- ${questions[index]}'),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -30,12 +30,16 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Radio(
-                      value: radioIndex,
-                      groupValue: statePersonalityModelIndexWatch.selectedOption[index],
-                      activeColor: Colors.red,
-                      onChanged: (int ? value) => selectedOption(ref, value!, index),
-                    ),
-                    Text('${radioIndex-1}'),
+                        value: radioIndex,
+                        groupValue:
+                            statePersonalityModelWatch.selectedOption[index],
+                        activeColor: Colors.red,
+                        onChanged: (int? value) {
+                          //statePersonalityModelWatch.changeSelectOption(value!, index);
+                          statePersonalityModelRead.selectedOption[index]=value!;
+                          statePersonalityModelRead.changeSelectOption(value, index);
+                        }),
+                    Text('${radioIndex - 1}'),
                   ],
                 ),
               ),
