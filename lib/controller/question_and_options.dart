@@ -1,6 +1,3 @@
-
-//final controller= ChangeNotifierProvider((ref) => PersonalityModel());
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/controller/data.dart';
@@ -13,9 +10,7 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var read = ref.read(controller.notifier);
-    read.getData();
-
+    var read = ref.read(controller);
     var watch = ref.watch(controller);
 
     return Column(
@@ -35,12 +30,11 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                   children: [
                     Radio(
                         value: radioIndex,
-                        groupValue: watch
-                            .showSelectedOption(index),
+                        groupValue: watch.showSelectedOption(index),
                         activeColor: Colors.red,
                         onChanged: (int? value) {
-                            read.changeSelectedOption(value!, index);
-                            read.isChangedTrue();
+                          read.changeSelectedOption(value!, index);
+                          read.isChangedTrue();
                         }),
                     Text('${radioIndex - 1}'),
                   ],

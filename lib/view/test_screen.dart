@@ -12,14 +12,11 @@ class TestScreen extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => TestScreenState();
-
 }
 
 class TestScreenState extends ConsumerState<TestScreen> {
-
   @override
   void initState() {
-
     ref.read(controller).getData();
     super.initState();
   }
@@ -41,71 +38,71 @@ class TestScreenState extends ConsumerState<TestScreen> {
           backgroundColor: const Color(0x0000007d),
         ),
         body: LoadingWidget(
-            isLoading: watch.isLoadingData,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                children: [
-                  const Text(
-                    'You need to answer a few questions',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  for (int index = 0; index < questions.length; index++)
-                    QuestionAndOptionsWidget(index: index),
-                  Visibility(
-                    visible: watch.isChanged,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.3),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if (!watch.getSelectedOptionList().contains(0)) {
-                              int length = watch.getSelectedOptionList().length;
-                              int totalPoint = 0;
-                              late int? element;
+          isLoading: watch.isLoadingData,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                const Text(
+                  'You need to answer a few questions',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                for (int index = 0; index < questions.length; index++)
+                  QuestionAndOptionsWidget(index: index),
+                Visibility(
+                  visible: watch.isChanged,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.3),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (watch.getSelectedOptionList().contains(0)==false) {
+                            int length = watch.getSelectedOptionList().length;
+                            int totalPoint = 0;
+                            late int? element;
 
-                              for (int i = 0; i < length; i++) {
-                                element = int.parse(watch
-                                    .getSelectedOptionList()
-                                    .elementAt(i)
-                                    .toString()) -
-                                    1;
-                                totalPoint += element;
-                              }
-
-                              debugPrint('Buradayım');
-
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('Total Points'),
-                                      content: const Text(''),
-                                      actions: [
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          child: const Text('CANCEL'),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          child: const Text('ACCEPT'),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                              debugPrint(totalPoint.toString());
+                            for (int i = 0; i < length; i++) {
+                              element = int.parse(watch
+                                      .getSelectedOptionList()
+                                      .elementAt(i)
+                                      .toString()) -
+                                  1;
+                              totalPoint += element;
                             }
-                          },
-                          child: const Text('Apply')),
-                    ),
-                  )
-                ],
-              ),
+
+                            debugPrint('Buradayım');
+
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Total Points'),
+                                    content: const Text(''),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text('CANCEL'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text('ACCEPT'),
+                                      ),
+                                    ],
+                                  );
+                                });
+                            debugPrint(totalPoint.toString());
+                          }
+                        },
+                        child: const Text('Apply')),
+                  ),
+                )
+              ],
             ),
+          ),
         ),
       ),
     );
