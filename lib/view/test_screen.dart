@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/controller/data.dart';
-import 'package:test_your_personality/controller/loading_widget.dart';
+import 'package:test_your_personality/view/loading_widget.dart';
 import 'package:test_your_personality/controller/question_and_options.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
