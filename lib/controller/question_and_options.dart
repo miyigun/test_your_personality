@@ -42,6 +42,9 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
               ),
           ],
         ),
+        const Divider(
+          thickness: 5.0,
+        ),
       ],
     );
   }

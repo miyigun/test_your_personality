@@ -24,28 +24,65 @@ class TestScreenState extends ConsumerState<TestScreen> {
   @override
   Widget build(BuildContext context) {
     var watch = ref.watch(controller);
+    var read=ref.read(controller);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Test Your Personality...',
-            style: TextStyle(
-              fontSize: 24,
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total Points: ${watch.getTotalPoints()}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.red,
+                ),
+              ),
+              Visibility(
+                  visible: !watch.getSelectedOptionList().contains(0),
+                child: Text(
+                    'State -> ${watch.personalityState}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue
+
+                  ),
+                ),
+
+              ),
+            ],
           ),
           backgroundColor: const Color(0x0000007d),
         ),
         body: LoadingWidget(
           isLoading: watch.isLoadingData,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all( 10.0),
             child: ListView(
               children: [
+                const Center(
+                  child: Text(
+                    'Test Your Personality...',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const Divider(
+                  thickness: 10.0,
+                ),
                 const Text(
                   'You need to answer a few questions',
-                  style: TextStyle(fontSize: 16.0),
+                  style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Divider(
+                  thickness: 5.0,
                 ),
                 const SizedBox(
                   height: 10,
@@ -61,7 +98,7 @@ class TestScreenState extends ConsumerState<TestScreen> {
                         onPressed: () {
                           if (watch.getSelectedOptionList().contains(0)==false) {
                             int length = watch.getSelectedOptionList().length;
-                            int totalPoint = 0;
+
                             late int? element;
 
                             for (int i = 0; i < length; i++) {
@@ -70,31 +107,10 @@ class TestScreenState extends ConsumerState<TestScreen> {
                                       .elementAt(i)
                                       .toString()) -
                                   1;
-                              totalPoint += element;
+                              read.addPoints(element);
                             }
+                            read.personalityFinalState();
 
-                            debugPrint('Buradayım');
-
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Total Points'),
-                                    content: const Text(''),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {},
-                                        child: const Text('CANCEL'),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {},
-                                        child: const Text('ACCEPT'),
-                                      ),
-                                    ],
-                                  );
-                                });
-                            debugPrint(totalPoint.toString());
                           }
                         },
                         child: const Text('Apply')),
