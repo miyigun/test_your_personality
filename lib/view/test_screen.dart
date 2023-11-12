@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/controller/data.dart';
 import 'package:test_your_personality/controller/question_and_options.dart';
 
-class TestScreen extends StatelessWidget {
+class TestScreen extends ConsumerWidget {
   const TestScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

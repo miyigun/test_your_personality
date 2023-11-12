@@ -11,8 +11,8 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state.selectedOption[index];
-    var statePersonalityModelIndexWatch = ref.watch(statePersonalityModel).selectedOption[index];
+    //var statePersonalityModelIndex = ref.read(statePersonalityModel.notifier).state;
+    var statePersonalityModelIndexWatch = ref.watch(statePersonalityModel);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,14 +31,9 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                   children: [
                     Radio(
                       value: radioIndex,
-                      groupValue: statePersonalityModelIndexWatch,
+                      groupValue: statePersonalityModelIndexWatch.selectedOption[index],
                       activeColor: Colors.red,
-                      onChanged: (value) {
-                        statePersonalityModelIndex = value!;
-                        selectedOption(ref,value,index);
-                        debugPrint(statePersonalityModelIndex.toString());
-                        debugPrint(statePersonalityModelIndexWatch.toString());
-                        },
+                      onChanged: (int ? value) => selectedOption(ref, value!, index),
                     ),
                     Text('${radioIndex-1}'),
                   ],

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
@@ -6,8 +7,10 @@ void increaseIndex(WidgetRef ref) {
   statePersonalityModelIndex.index++;
 }
 
-void selectedOption(WidgetRef ref,int value,int index) {
-  final statePersonalityModelSelectedOption = ref.read(statePersonalityModel.notifier).state;
-  statePersonalityModelSelectedOption.selectedOption[index]=value;
-  //debugPrint(statePersonalityModelSelectedOption.selectedOption[index].toString());
+void selectedOption(WidgetRef ref,int? value,int index) {
+  final statePersonalityModelSelectedOptionRead = ref.read(statePersonalityModel.notifier).state;
+  final statePersonalityModelSelectedOptionWatch = ref.watch(statePersonalityModel);
+  statePersonalityModelSelectedOptionRead.selectedOption[index]=value!;
+  debugPrint(statePersonalityModelSelectedOptionRead.selectedOption[index].toString());
+  debugPrint(statePersonalityModelSelectedOptionWatch.selectedOption[index].toString());
 }
