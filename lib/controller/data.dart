@@ -10,6 +10,4 @@ var questions = [
   "I see myself as someone who does not remain calm in tense situations"
 ];
 
-var degreeList=[0,0,0,0,0,0,0,0,0];
-
-var selectOptionList=[0,0,0,0,0,0,0,0,0];
+var selectOptionList=List<int>.generate(9, (index) => 0);

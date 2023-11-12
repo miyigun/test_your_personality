@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_your_personality/controller/data.dart';
-import 'package:test_your_personality/model/personality_model.dart';
+import 'package:test_your_personality/view/test_screen.dart';
+
+//final controller= ChangeNotifierProvider((ref) => PersonalityModel());
 
 class QuestionAndOptionsWidget extends ConsumerWidget {
   const QuestionAndOptionsWidget({super.key, required this.index});
@@ -10,9 +12,10 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var statePersonalityModelRead =
-        ref.read(statePersonalityModel.notifier).state;
-    var statePersonalityModelWatch = ref.watch(statePersonalityModel);
+    var read = ref.read(controller.notifier);
+    read.getData();
+
+    var watch = ref.watch(controller);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,13 +34,32 @@ class QuestionAndOptionsWidget extends ConsumerWidget {
                   children: [
                     Radio(
                         value: radioIndex,
-                        groupValue:
-                            statePersonalityModelWatch.selectedOption[index],
+                        groupValue: watch
+                            .showSelectedOption(index),
                         activeColor: Colors.red,
                         onChanged: (int? value) {
-                          //statePersonalityModelWatch.changeSelectOption(value!, index);
-                          statePersonalityModelRead.selectedOption[index]=value!;
-                          statePersonalityModelRead.changeSelectOption(value, index);
+                          //statePersonalityModelRead.changeSelectedOption(value!, index);
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((timeStamp) {
+                            if (watch
+                                .getSelectedOptionList()
+                                .isEmpty) {
+                              read.getData();
+                              read
+                                  .changeSelectedOption(value!, index);
+                              //debugPrint(statePersonalityModelWatch.getSelectedOptionList().toString());
+                              //debugPrint(statePersonalityModelWatch.showSelectedOption(index).toString());
+                              return;
+                            }
+                            read
+                                .changeSelectedOption(value!, index);
+                            debugPrint(watch
+                                .showSelectedOption(index)
+                                .toString());
+                            read.isChangedTrue();
+                          });
+
+                          //statePersonalityModelRead.changeSelectOption(value, index);
                         }),
                     Text('${radioIndex - 1}'),
                   ],
