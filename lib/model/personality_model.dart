@@ -5,12 +5,14 @@ class PersonalityModel extends ChangeNotifier {
   List<int?> _selectedOption = [];
 
   bool isChanged=false;
+  bool isLoadingData=false;
 
   void getData() {
     if (_selectedOption.isNotEmpty) {
       return;
     }
     _selectedOption = selectOptionList;
+    isLoadingData=true;
 
     notifyListeners();
   }
@@ -19,8 +21,8 @@ class PersonalityModel extends ChangeNotifier {
     return _selectedOption;
   }
 
-  void changeSelectedOption(int? value, int index) {
-    _selectedOption[index] = value!;
+  void changeSelectedOption(int value, int index) {
+    _selectedOption[index] = value;
 
     notifyListeners();
   }
