@@ -6,14 +6,10 @@ import 'package:test_your_personality/controller/question_and_options.dart';
 import 'package:test_your_personality/model/personality_model.dart';
 
 final controller = ChangeNotifierProvider((ref) => PersonalityModel());
-/*
+
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-const SnackBar snackBar = SnackBar(
-    content: Text(
-    'Alert has been pressed!',
-    style: TextStyle(fontSize: 30),
-));*/
+
 
 class TestScreen extends ConsumerStatefulWidget {
   const TestScreen({super.key});
@@ -37,6 +33,7 @@ class TestScreenState extends ConsumerState<TestScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,16 +116,18 @@ class TestScreenState extends ConsumerState<TestScreen> {
                             }
                             read.personalityFinalState();
 
-                            /*final snackBar = SnackBar(
+                            final snackBar = SnackBar(
                               content: const Text('Hi, I am a SnackBar!'),
                               backgroundColor: (Colors.black12),
+                              duration: Duration(seconds: 2),
                               action: SnackBarAction(
                                 label: 'dismiss',
                                 onPressed: () {
                                 },
                               ),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
+                            //SnackBar(content: Text('Murat'),duration: Duration(seconds: 2));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
                         },
                         child: const Text('Apply')),
